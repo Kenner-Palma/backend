@@ -4,6 +4,7 @@ from MyApps.users.models import Students,Teachers
 # Register your models here.
 
 class TeachersAdmin(admin.ModelAdmin):
+    
     list_display = ('name', 'last_name', 'email', 'phone', 'specialty')
     list_filter = ('specialty',)
     search_fields = ('name', 'last_name', 'email', 'specialty')
@@ -17,6 +18,8 @@ class TeachersAdmin(admin.ModelAdmin):
             'fields': ('specialty', 'biography', 'photo_url')
         }),
     )
+    
+    
 
 
 class StudentsAdmin(admin.ModelAdmin):

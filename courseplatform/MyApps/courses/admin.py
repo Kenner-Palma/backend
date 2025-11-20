@@ -4,7 +4,7 @@ from MyApps.courses.models import Courses, Lessons, Modules, Registrations
 # Register your models here.
 
 class CoursesAdmin(admin.ModelAdmin):
-    list_display = ('title', 'state_course', 'start_date', 'end_date', 'level', 'price', 'teacher_id')
+    list_display = ('title', 'state_course', 'start_date', 'end_date', 'level', 'price', 'teacher')
     list_filter = ('state_course', 'level', 'start_date', 'end_date', 'language')
     search_fields = ('title', 'description', 'objetives', 'requeriments')
     filter_horizontal = ('tags',)
@@ -21,7 +21,7 @@ class CoursesAdmin(admin.ModelAdmin):
             'fields': ('state_course', 'level', 'certificate_available', 'image_url')
         }),
         ('Relaciones', {
-            'fields': ('teacher_id', 'tags'),
+            'fields': ('teacher', 'tags'),
             'classes': ('collapse',),
         }),
     )
@@ -51,7 +51,7 @@ class ModulesAdmin(admin.ModelAdmin):
 
 
 class LessonsAdmin(admin.ModelAdmin):
-    list_display = ('name', 'content_type', 'available_date', 'order', 'id_module')
+    list_display = ('name', 'content_type', 'available_date', 'order', 'module')
     list_filter = ('content_type', 'available_date')
     search_fields = ('name', 'content')
     ordering = ('available_date',)
@@ -67,7 +67,7 @@ class LessonsAdmin(admin.ModelAdmin):
             'fields': ('resource_url',)
         }),
         ('Relación', {
-            'fields': ('id_module',)
+            'fields': ('module',)
         }),
     )
 

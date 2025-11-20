@@ -11,9 +11,9 @@ class Teachers(models.Model):
         photo_url = models.CharField(max_length=250, blank=True, null=True, help_text = "Ingrese la URL de la foto del Profesor")
         
         def __str__(self):
-                return self.name
+                return f'{self.name} - {self.last_name}'
         
-        class Meta:
+        class Meta: 
                 db_table = 'teachers'
                 verbose_name = 'teacher'
                 verbose_name_plural = "teachers"

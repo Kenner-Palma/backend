@@ -6,9 +6,9 @@ from MyApps.courses.models import Lessons
 # Create your models here.
 class Evaluations(models.Model):
     TYPE_CHOICES=[
-        ('EXAM', 'exam'),
-        ('QUIZ', 'quiz'),
-        ('ASSIGNMENT','assignment')
+        ('Exam', 'Exam'),
+        ('Quiz', 'Quiz'),
+        ('Assigment','Assignment')
     ]
     title = models.CharField(max_length=30, help_text="Ingrese el título de la evaluación")
     description = models.TextField(help_text="Ingrese la descripción de la evaluación")
@@ -98,7 +98,7 @@ class StudentDeliveries(models.Model):
         ('PENDIENTE', 'Pendiente'),
         ('DEVUELTA', 'Devuelta')
     ]
-    delivery_date = models.DateField(help_text="Ingrese la fecha en que el estudiante realizó la entrega")
+    delivery_date = models.DateTimeField(help_text="Ingrese la fecha en que el estudiante realizó la entrega")
     archive = models.CharField(max_length=255, help_text="Ingrese la URL o ruta del archivo entregado por el estudiante")
     calification = models.FloatField(help_text="Ingrese la calificación obtenida en la entrega")
     state = models.CharField(

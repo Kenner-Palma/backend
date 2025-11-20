@@ -7,8 +7,8 @@ from MyApps.courses.models import Courses
 class Forums(models.Model):
     TYPE_CHOICES = [
         ('GENERAL','General'),
-        ('QUESTIONS','Questions'),
-        ('PROJECTS','Projects'),
+        ('PREGUNTA','Pregunta'),
+        ('PROJECTOS','Projectos'),
         ('SOCIAL','Social')
     ]
     

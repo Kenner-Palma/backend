@@ -6,15 +6,15 @@ from MyApps.tags.models import Tags
 class Courses(models.Model):
     
     ESTADO_CHOICES = [
-        ('activo', 'Activo'),
-        ('inactivo', 'Inactivo'),
-        ('archivado', 'Archivado'),
+        ('ACTIVO', 'Activo'),
+        ('INACTIVO', 'Inactivo'),
+        ('ARCHIVADO', 'Archivado'),
     ]
 
     NIVEL_CHOICES = [
-        ('básico', 'Básico'),
-        ('intermedio', 'Intermedio'),
-        ('avanzado', 'Avanzado'),
+        ('BASICO', 'Básico'),
+        ('INTERMEDIO', 'Intermedio'),
+        ('AVANZADO', 'Avanzado'),
     ]
 
     
@@ -33,7 +33,7 @@ class Courses(models.Model):
     image_url = models.CharField(max_length=255, blank=True, null=True, help_text="Ingrese una imagen para el curso")
     certificate_available = models.BooleanField(default=False, help_text="Indique si tiene cetificado disponible el curso")
     estimated_duration = models.IntegerField(blank=True, null=True, help_text="Ingrese la duracion del curso")
-    teacher_id = models.ForeignKey(
+    teacher = models.ForeignKey(
         Teachers,  # o el nombre del modelo relacionado
         on_delete=models.CASCADE,
         help_text="Seleccione el profesor asociado al curso"
@@ -55,16 +55,17 @@ class Courses(models.Model):
         verbose_name = "course"
         verbose_name_plural = "courses"
 
-class Modules(models.Model):
-    name = models.CharField(max_length=50, help_text= "Ingrese el nombre del Modulo")
-    description = models.TextField( help_text= "Ingrese la descripcion del Modulo")
+class Modules(models.Model):    
+    name = models.CharField(blank=True, null=True,max_length=50, help_text= "Ingrese el nombre del Modulo")
+    description = models.TextField( blank=True, null=True,help_text= "Ingrese la descripcion del Modulo")
     order = models.CharField(max_length=100, help_text= "Ingrese el orden del Modulo")
     estimated_duration = models.IntegerField(blank=True, null=True, help_text= "Ingrese la duracion estimada del Modulo")
     available_date = models.DateField(blank=True, null=True, help_text= "Ingrese la fecha de disponibilidad del Modulo")
     course = models.ForeignKey(
         Courses,
         on_delete=models.CASCADE, 
-        help_text="Seleccione el Curso asociado al Modulo")
+        help_text="Seleccione el Curso asociado al Modulo",
+        blank=True, null=True,)
     
     def __str__(self):
         return self.name
@@ -76,13 +77,26 @@ class Modules(models.Model):
 
 
 class Lessons(models.Model):
+    TYPE_CHOICE = [
+        ('Texto', 'TEXTO'),
+        ('Video','VIDEO'),
+        ('PDF','PDF'),
+        ('Enlace externo','ENLACE EXTERNO'),
+        ('Quiz','QUIZ'),
+        ('Documento', 'DOCUMENTO')
+    ]
+    
     name = models.CharField(max_length=100, help_text="Ingrese el nombre de la lección")
     content = models.TextField(help_text="Ingrese el contenido de la lección")
-    content_type = models.CharField(max_length=14, help_text="Ingrese el tipo de contenido")
+    content_type = models.CharField(
+        max_length=14,
+        choices= TYPE_CHOICE, 
+        help_text="Ingrese el tipo de contenido"
+    )
     available_date = models.DateField(blank=True, null=True, help_text="Ingrese la fecha de disponibilidad de la lección")
     order = models.CharField(max_length=50, help_text="Ingrese el orden de la lección dentro del módulo")
     resource_url = models.CharField(max_length=255, blank=True, null=True, help_text="Ingrese la URL del recurso asociado")
-    id_module = models.ForeignKey(
+    module = models.ForeignKey(
         Modules, 
         on_delete=models.CASCADE, 
         help_text="Seleccione el Modulo" )
